@@ -60,35 +60,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroVideo) {
       const initVideo = () => {
         if (videoReadyForScroll) return;
-        heroVideo.pause();
         videoDuration = heroVideo.duration;
         heroVideo.currentTime = 0.01;
+        heroVideo.playbackRate = 1;
+        heroVideo.play();
 
-        setTimeout(() => {
-          heroVideo.playbackRate = 1;
-          heroVideo.play();
+        let rafId;
+        function checkProgress() {
+          const dur = videoDuration;
+          const pct = heroVideo.currentTime / dur;
 
-          let rafId;
-          function checkProgress() {
-            const dur = videoDuration;
-            const pct = heroVideo.currentTime / dur;
-
-            // Video ended or very close to end
-            if (pct >= 0.99 || heroVideo.ended) {
-              heroVideo.pause();
-              videoReadyForScroll = true;
-              return;
-            }
-            // Last 15%: gentle slowdown to 0.2x
-            if (pct >= 0.85) {
-              const slowPct = (pct - 0.85) / 0.15;
-              heroVideo.playbackRate = Math.max(0.2, 1 - slowPct * 0.8);
-            }
-            rafId = requestAnimationFrame(checkProgress);
+          if (pct >= 0.99 || heroVideo.ended) {
+            heroVideo.pause();
+            videoReadyForScroll = true;
+            return;
+          }
+          // Last 15%: gentle slowdown to 0.2x
+          if (pct >= 0.85) {
+            const slowPct = (pct - 0.85) / 0.15;
+            heroVideo.playbackRate = Math.max(0.2, 1 - slowPct * 0.8);
           }
           rafId = requestAnimationFrame(checkProgress);
-          heroVideo.addEventListener('pause', () => cancelAnimationFrame(rafId), { once: true });
-        }, 400);
+        }
+        rafId = requestAnimationFrame(checkProgress);
+        heroVideo.addEventListener('pause', () => cancelAnimationFrame(rafId), { once: true });
       };
 
       if (heroVideo.readyState >= 2) {
