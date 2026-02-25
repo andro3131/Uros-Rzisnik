@@ -38,20 +38,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroScroll = document.querySelector('.hero__scroll');
 
   if (heroWrap && hero) {
+    const heroBgImg = heroBg ? heroBg.querySelector('img') : null;
+    let heroZoomDone = false;
+
+    // Wait for the CSS zoom-in animation to finish before applying scroll transforms
+    if (heroBgImg) {
+      heroBgImg.addEventListener('animationend', () => {
+        heroZoomDone = true;
+      });
+      // Fallback in case the event was missed
+      setTimeout(() => { heroZoomDone = true; }, 2600);
+    }
+
     const updateHeroParallax = () => {
       const wrapRect = heroWrap.getBoundingClientRect();
       const wrapHeight = heroWrap.offsetHeight;
       const viewH = window.innerHeight;
-      // progress: 0 when hero-wrap top is at viewport top, 1 at end
       const scrolled = Math.max(0, -wrapRect.top);
       const progress = Math.min(1, scrolled / (wrapHeight - viewH));
 
       if (heroBg) {
-        heroBg.style.transform = `translateY(${progress * 40}px) scale(${1 + progress * 0.08})`;
+        if (heroZoomDone || progress > 0.01) {
+          heroBg.style.transform = `translateY(${progress * 40}px) scale(${1 + progress * 0.08})`;
+        }
       }
       if (heroContent) {
-        heroContent.style.opacity = 1 - progress * 2.5;
-        heroContent.style.transform = `translateY(${progress * -80}px)`;
+        // Only override opacity/transform after the intro animation completes
+        if (progress > 0.01) {
+          heroContent.style.animation = 'none';
+          heroContent.style.opacity = 1 - progress * 2.5;
+          heroContent.style.transform = `translateY(${progress * -80}px)`;
+        }
       }
       if (heroScroll) {
         heroScroll.style.opacity = 1 - progress * 4;
