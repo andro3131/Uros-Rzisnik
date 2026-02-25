@@ -56,16 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => { heroZoomDone = true; }, 2600);
     }
 
-    // Hero video: play full video, slow down last 10%, then scroll = parallax zoom on last frame
+    // Hero video: play full video, slow down last 15%, then scroll = parallax zoom on last frame
     if (heroVideo) {
-      const initVideo = () => {
-        if (videoReadyForScroll) return;
+      let videoRafId;
+
+      const playHeroVideo = () => {
         videoDuration = heroVideo.duration;
         heroVideo.currentTime = 0.01;
         heroVideo.playbackRate = 1;
+        videoReadyForScroll = false;
         heroVideo.play();
 
-        let rafId;
         function checkProgress() {
           const dur = videoDuration;
           const pct = heroVideo.currentTime / dur;
@@ -80,10 +81,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const slowPct = (pct - 0.85) / 0.15;
             heroVideo.playbackRate = Math.max(0.2, 1 - slowPct * 0.8);
           }
-          rafId = requestAnimationFrame(checkProgress);
+          videoRafId = requestAnimationFrame(checkProgress);
         }
-        rafId = requestAnimationFrame(checkProgress);
-        heroVideo.addEventListener('pause', () => cancelAnimationFrame(rafId), { once: true });
+        videoRafId = requestAnimationFrame(checkProgress);
+        heroVideo.addEventListener('pause', () => cancelAnimationFrame(videoRafId), { once: true });
+      };
+
+      // Initial play
+      const initVideo = () => {
+        if (videoReadyForScroll) return;
+        playHeroVideo();
       };
 
       if (heroVideo.readyState >= 2) {
@@ -91,6 +98,30 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         heroVideo.addEventListener('loadeddata', initVideo, { once: true });
         heroVideo.addEventListener('canplay', initVideo, { once: true });
+      }
+
+      // Replay when hero scrolls back into view
+      let heroWasHidden = false;
+      const heroReplayObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            heroWasHidden = true;
+          } else if (heroWasHidden && videoReadyForScroll) {
+            heroWasHidden = false;
+            playHeroVideo();
+          }
+        });
+      }, { threshold: 0.5 });
+      heroReplayObserver.observe(hero);
+
+      // Replay on nav logo click
+      const navLogo = document.querySelector('.nav__logo');
+      if (navLogo) {
+        navLogo.addEventListener('click', () => {
+          setTimeout(() => {
+            if (videoReadyForScroll) playHeroVideo();
+          }, 300);
+        });
       }
     }
 
