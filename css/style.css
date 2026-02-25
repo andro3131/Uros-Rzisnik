@@ -626,6 +626,36 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
+/* ---------- Interview ---------- */
+.interview {
+  padding-top: 80px;
+}
+
+.interview__content {
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+.interview__text {
+  color: var(--clr-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.interview__text:last-child {
+  margin-bottom: 0;
+}
+
+.interview__video {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
 /* ---------- Music ---------- */
 .music {
   padding-top: 120px;
