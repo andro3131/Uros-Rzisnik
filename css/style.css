@@ -632,8 +632,7 @@ a:hover {
 }
 
 .interview__content {
-  max-width: 800px;
-  margin: 0 auto 40px;
+  margin-bottom: 40px;
 }
 
 .interview__text {
