@@ -102,9 +102,8 @@ a:hover {
 }
 
 .section__subtitle--accent {
-  color: var(--clr-accent);
   font-style: italic;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 /* ---------- Section Diagonal Dividers ---------- */
