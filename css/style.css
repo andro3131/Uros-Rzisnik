@@ -1271,7 +1271,7 @@ lite-youtube:hover .lyt-playbtn {
 /* Music section video grid (index page - 4 videos) */
 .music__video-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
@@ -1401,7 +1401,7 @@ body::before {
   }
 
   .music__video-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .videos-grid {
@@ -1477,6 +1477,10 @@ body::before {
   }
 
   .music__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .music__video-grid {
     grid-template-columns: 1fr;
   }
 
