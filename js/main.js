@@ -167,49 +167,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryItems = document.querySelectorAll('.gallery__item, .gallery-full__item');
   let currentIndex = 0;
 
-  const openLightbox = (index) => {
-    currentIndex = index;
-    const src = galleryItems[index].getAttribute('data-src');
-    lightboxImg.src = src;
-    lightboxImg.alt = galleryItems[index].querySelector('img')?.alt || '';
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  };
+  if (lightbox) {
+    const openLightbox = (index) => {
+      currentIndex = index;
+      const src = galleryItems[index].getAttribute('data-src');
+      lightboxImg.src = src;
+      lightboxImg.alt = galleryItems[index].querySelector('img')?.alt || '';
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
 
-  const closeLightbox = () => {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-    lightboxImg.src = '';
-  };
+    const closeLightbox = () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    };
 
-  const showPrev = () => {
-    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-    openLightbox(currentIndex);
-  };
+    const showPrev = () => {
+      currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+      openLightbox(currentIndex);
+    };
 
-  const showNext = () => {
-    currentIndex = (currentIndex + 1) % galleryItems.length;
-    openLightbox(currentIndex);
-  };
+    const showNext = () => {
+      currentIndex = (currentIndex + 1) % galleryItems.length;
+      openLightbox(currentIndex);
+    };
 
-  galleryItems.forEach((item, i) => {
-    item.addEventListener('click', () => openLightbox(i));
-  });
+    galleryItems.forEach((item, i) => {
+      item.addEventListener('click', () => openLightbox(i));
+    });
 
-  lightbox.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
-  lightbox.querySelector('.lightbox__prev').addEventListener('click', showPrev);
-  lightbox.querySelector('.lightbox__next').addEventListener('click', showNext);
+    lightbox.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
+    lightbox.querySelector('.lightbox__prev').addEventListener('click', showPrev);
+    lightbox.querySelector('.lightbox__next').addEventListener('click', showNext);
 
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
-  });
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
 
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') showPrev();
-    if (e.key === 'ArrowRight') showNext();
-  });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  }
 
   /* ---------- Countdown Timer ---------- */
   const countdownEl = document.getElementById('countdown');
