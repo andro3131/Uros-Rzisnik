@@ -355,9 +355,8 @@
       <div class="albums__grid">
 
         <div class="album-card fade-in" data-fade-delay="200">
-          <div class="album-card__images">
-            <img src="https://uros-rzisnik-cdn.b-cdn.net/124124.jpg" alt="Raji – sprednja stran" loading="lazy">
-            <img src="https://uros-rzisnik-cdn.b-cdn.net/zadnja.jpg" alt="Raji – zadnja stran" loading="lazy">
+          <div class="album-card__cover" data-album="raji">
+            <img src="https://uros-rzisnik-cdn.b-cdn.net/124124.jpg" alt="Raji" loading="lazy">
           </div>
           <div class="album-card__info">
             <h3 class="album-card__title">Raji</h3>
@@ -366,9 +365,8 @@
         </div>
 
         <div class="album-card fade-in" data-fade-delay="300">
-          <div class="album-card__images">
-            <img src="https://uros-rzisnik-cdn.b-cdn.net/sdfsdg.jpg" alt="Rokrenul za Zasavje – sprednja stran" loading="lazy">
-            <img src="https://uros-rzisnik-cdn.b-cdn.net/adfsadgfadg.jpg" alt="Rokrenul za Zasavje – zadnja stran" loading="lazy">
+          <div class="album-card__cover" data-album="rokrenul">
+            <img src="https://uros-rzisnik-cdn.b-cdn.net/sdfsdg.jpg" alt="Rokrenul za Zasavje" loading="lazy">
           </div>
           <div class="album-card__info">
             <h3 class="album-card__title">Rokrenul za Zasavje</h3>
@@ -500,6 +498,15 @@
       </div>
     </div>
   </footer>
+
+  <!-- Album Lightbox -->
+  <div class="album-lightbox" id="albumLightbox">
+    <button class="album-lightbox__close">&times;</button>
+    <div class="album-lightbox__body">
+      <img class="album-lightbox__main" id="albumMainImg" src="" alt="">
+      <div class="album-lightbox__thumbs" id="albumThumbs"></div>
+    </div>
+  </div>
 
   <script src="js/lite-yt-embed.js"></script>
   <script src="js/main.js"></script>

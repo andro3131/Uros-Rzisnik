@@ -1040,6 +1040,8 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .album-card {
@@ -1055,17 +1057,21 @@ a:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
-.album-card__images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
+.album-card__cover {
+  cursor: pointer;
+  overflow: hidden;
 }
 
-.album-card__images img {
+.album-card__cover img {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease;
+}
+
+.album-card__cover:hover img {
+  transform: scale(1.05);
 }
 
 .album-card__info {
@@ -1086,10 +1092,101 @@ a:hover {
   display: inline-block;
 }
 
+/* Album Lightbox */
+.album-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.album-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.album-lightbox__close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: var(--clr-text);
+  font-size: 2.5rem;
+  cursor: pointer;
+  z-index: 10;
+  line-height: 1;
+  transition: color var(--transition);
+}
+
+.album-lightbox__close:hover {
+  color: var(--clr-accent);
+}
+
+.album-lightbox__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.album-lightbox__main {
+  max-height: 70vh;
+  max-width: 80vw;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+.album-lightbox__thumbs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.album-lightbox__thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.5;
+  transition: opacity var(--transition), border-color var(--transition);
+}
+
+.album-lightbox__thumb:hover {
+  opacity: 0.8;
+}
+
+.album-lightbox__thumb.active {
+  border-color: var(--clr-accent);
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
   .albums__grid {
     grid-template-columns: 1fr;
     gap: 24px;
+    max-width: 340px;
+  }
+
+  .album-lightbox__main {
+    max-height: 60vh;
+    max-width: 95vw;
+  }
+
+  .album-lightbox__thumb {
+    width: 60px;
+    height: 60px;
   }
 }
 

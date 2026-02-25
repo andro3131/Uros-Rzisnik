@@ -256,6 +256,74 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---------- Album Lightbox ---------- */
+  const albumLightbox = document.getElementById('albumLightbox');
+
+  if (albumLightbox) {
+    const albumMainImg = document.getElementById('albumMainImg');
+    const albumThumbs = document.getElementById('albumThumbs');
+
+    const albumData = {
+      raji: [
+        'https://uros-rzisnik-cdn.b-cdn.net/124124.jpg',
+        'https://uros-rzisnik-cdn.b-cdn.net/zadnja.jpg'
+      ],
+      rokrenul: [
+        'https://uros-rzisnik-cdn.b-cdn.net/sdfsdg.jpg',
+        'https://uros-rzisnik-cdn.b-cdn.net/adfsadgfadg.jpg'
+      ]
+    };
+
+    const openAlbumLightbox = (albumKey) => {
+      const images = albumData[albumKey];
+      if (!images) return;
+
+      albumThumbs.innerHTML = '';
+      images.forEach((src, i) => {
+        const thumb = document.createElement('img');
+        thumb.src = src;
+        thumb.alt = '';
+        thumb.className = 'album-lightbox__thumb' + (i === 0 ? ' active' : '');
+        thumb.addEventListener('click', () => selectAlbumImage(src, thumb));
+        albumThumbs.appendChild(thumb);
+      });
+
+      albumMainImg.src = images[0];
+      albumLightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const selectAlbumImage = (src, thumbEl) => {
+      albumMainImg.src = src;
+      albumThumbs.querySelectorAll('.album-lightbox__thumb').forEach(t => t.classList.remove('active'));
+      thumbEl.classList.add('active');
+    };
+
+    const closeAlbumLightbox = () => {
+      albumLightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      albumMainImg.src = '';
+    };
+
+    document.querySelectorAll('.album-card__cover').forEach(cover => {
+      cover.addEventListener('click', () => {
+        const albumKey = cover.dataset.album;
+        openAlbumLightbox(albumKey);
+      });
+    });
+
+    albumLightbox.querySelector('.album-lightbox__close').addEventListener('click', closeAlbumLightbox);
+
+    albumLightbox.addEventListener('click', (e) => {
+      if (e.target === albumLightbox) closeAlbumLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!albumLightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeAlbumLightbox();
+    });
+  }
+
   /* ---------- Countdown Timer ---------- */
   const countdownEl = document.getElementById('countdown');
 
