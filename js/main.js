@@ -60,20 +60,28 @@ document.addEventListener('DOMContentLoaded', () => {
         videoDuration = heroVideo.duration;
       });
 
-      heroVideo.addEventListener('timeupdate', () => {
-        if (!videoDuration) return;
+      // Use rAF loop for precise video control (timeupdate is too infrequent)
+      function watchVideo() {
+        if (videoReadyForScroll) return; // stop loop once paused at 66%
+        if (!videoDuration || heroVideo.paused) {
+          requestAnimationFrame(watchVideo);
+          return;
+        }
         const pct = heroVideo.currentTime / videoDuration;
 
         if (pct >= 0.66) {
           heroVideo.pause();
+          heroVideo.currentTime = videoDuration * 0.66;
           heroVideo.playbackRate = 1;
           videoReadyForScroll = true;
+          return;
         } else if (pct >= 0.5) {
-          // Linearly slow down from 1.0 to 0.1 between 50%–66%
           const slowPct = (pct - 0.5) / 0.16;
           heroVideo.playbackRate = Math.max(0.1, 1 - slowPct * 0.9);
         }
-      });
+        requestAnimationFrame(watchVideo);
+      }
+      requestAnimationFrame(watchVideo);
     }
 
     const updateHeroParallax = () => {
