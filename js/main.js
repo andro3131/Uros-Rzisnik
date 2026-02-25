@@ -56,22 +56,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hero video: autoplay → slow down at 50% → pause at 66% → scroll-driven last third
     if (heroVideo) {
-      heroVideo.addEventListener('loadedmetadata', () => {
-        videoDuration = heroVideo.duration;
-      });
-
-      // Use rAF loop for precise video control (timeupdate is too infrequent)
+      // Use rAF loop for precise video control
       function watchVideo() {
-        if (videoReadyForScroll) return; // stop loop once paused at 66%
-        if (!videoDuration || heroVideo.paused) {
+        if (videoReadyForScroll) return;
+
+        // Read duration directly from element (loadedmetadata may have fired already)
+        const dur = heroVideo.duration;
+        if (!dur || isNaN(dur) || heroVideo.paused) {
           requestAnimationFrame(watchVideo);
           return;
         }
-        const pct = heroVideo.currentTime / videoDuration;
+        videoDuration = dur;
+        const pct = heroVideo.currentTime / dur;
 
         if (pct >= 0.66) {
           heroVideo.pause();
-          heroVideo.currentTime = videoDuration * 0.66;
+          heroVideo.currentTime = dur * 0.66;
           heroVideo.playbackRate = 1;
           videoReadyForScroll = true;
           return;
