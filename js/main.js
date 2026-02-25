@@ -215,7 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const countdownEl = document.getElementById('countdown');
 
   if (countdownEl) {
-    const targetDate = new Date(countdownEl.getAttribute('data-target-date')).getTime();
+    const targetDate = new Date(countdownEl.dataset.targetDate).getTime();
+    if (isNaN(targetDate)) { console.warn('Invalid countdown date'); }
     const daysEl = document.getElementById('countDays');
     const hoursEl = document.getElementById('countHours');
     const minutesEl = document.getElementById('countMinutes');
