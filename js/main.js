@@ -151,14 +151,14 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(update);
   }
 
-  // Repeat counter animation every 8 seconds
+  // Repeat counter animation every 12 seconds
   if (counterEls.length > 0) {
     setInterval(() => {
       counterEls.forEach(el => {
         el.textContent = '0' + (el.getAttribute('data-count-suffix') || '');
         animateCounter(el);
       });
-    }, 8000);
+    }, 12000);
   }
 
   /* ---------- Gallery Lightbox ---------- */
