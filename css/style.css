@@ -1031,6 +1031,68 @@ a:hover {
   padding-bottom: 24px;
 }
 
+/* ---------- Albums ---------- */
+.albums {
+  padding-top: 120px;
+}
+
+.albums__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.album-card {
+  background: var(--clr-bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.album-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.album-card__images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.album-card__images img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.album-card__info {
+  padding: 24px;
+  text-align: center;
+}
+
+.album-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--clr-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.album-card__btn {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .albums__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
 /* ---------- Events ---------- */
 .events {
   padding-top: 120px;
