@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -32,49 +33,102 @@
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero__bg">
-      <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Uroš Ržišnik nastopa na odru" loading="eager">
+  <!-- Hero (sticky parallax wrapper) -->
+  <div class="hero-wrap">
+    <section class="hero" id="hero">
+      <div class="hero__bg">
+        <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Uroš Ržišnik nastopa na odru" loading="eager">
+      </div>
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <h1 class="hero__title">Uroš Ržišnik</h1>
+        <p class="hero__subtitle">Pripovedovalec knapuških zgodb<br>iz lastnih izkušenj ob glasbeni spremljavi</p>
+        <a href="#music" class="btn btn--primary">Poslušaj glasbo</a>
+      </div>
+      <div class="hero__scroll">
+        <span>Pomaknite se navzdol</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <!-- Marquee 1: med hero in about -->
+  <div class="marquee marquee--accent">
+    <div class="marquee__track">
+      <div class="marquee__content">
+        <span>Knapuške zgodbe</span>
+        <span class="marquee__dot"></span>
+        <span>Rock'n'Roll</span>
+        <span class="marquee__dot"></span>
+        <span>Zasavje</span>
+        <span class="marquee__dot"></span>
+        <span>Kisovec</span>
+        <span class="marquee__dot"></span>
+        <span>Rudarske pesmi</span>
+        <span class="marquee__dot"></span>
+        <span>Knapuške zgodbe</span>
+        <span class="marquee__dot"></span>
+        <span>Rock'n'Roll</span>
+        <span class="marquee__dot"></span>
+        <span>Zasavje</span>
+        <span class="marquee__dot"></span>
+        <span>Kisovec</span>
+        <span class="marquee__dot"></span>
+        <span>Rudarske pesmi</span>
+        <span class="marquee__dot"></span>
+      </div>
+      <div class="marquee__content" aria-hidden="true">
+        <span>Knapuške zgodbe</span>
+        <span class="marquee__dot"></span>
+        <span>Rock'n'Roll</span>
+        <span class="marquee__dot"></span>
+        <span>Zasavje</span>
+        <span class="marquee__dot"></span>
+        <span>Kisovec</span>
+        <span class="marquee__dot"></span>
+        <span>Rudarske pesmi</span>
+        <span class="marquee__dot"></span>
+        <span>Knapuške zgodbe</span>
+        <span class="marquee__dot"></span>
+        <span>Rock'n'Roll</span>
+        <span class="marquee__dot"></span>
+        <span>Zasavje</span>
+        <span class="marquee__dot"></span>
+        <span>Kisovec</span>
+        <span class="marquee__dot"></span>
+        <span>Rudarske pesmi</span>
+        <span class="marquee__dot"></span>
+      </div>
     </div>
-    <div class="hero__overlay"></div>
-    <div class="hero__content">
-      <h1 class="hero__title">Uroš Ržišnik</h1>
-      <p class="hero__subtitle">Pripovedovalec knapuških zgodb<br>iz lastnih izkušenj ob glasbeni spremljavi</p>
-      <a href="#music" class="btn btn--primary">Poslušaj glasbo</a>
-    </div>
-    <div class="hero__scroll">
-      <span>Pomaknite se navzdol</span>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14M5 12l7 7 7-7"/>
-      </svg>
-    </div>
-  </section>
+  </div>
 
   <!-- O meni -->
   <section class="section about" id="about">
+    <div class="section__divider section__divider--top"></div>
     <div class="container">
-      <h2 class="section__title fade-in">O meni</h2>
+      <h2 class="section__title fade-in" data-fade-delay="0">O meni</h2>
       <div class="about__grid">
-        <div class="about__image fade-in">
+        <div class="about__image fade-in" data-fade-delay="100">
           <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Uroš Ržišnik">
         </div>
-        <div class="about__text fade-in">
-          <p class="about__lead">Bivši rudar iz Kisovca, danes kantavtor, ki rudarske zgodbe preobleče v rock'n'roll.</p>
-          <p>Rojen in odraščal sem v Kisovcu, rudarskem naselju v srcu Zasavja. Leta sem preživel pod zemljo in spoznal zgodbe, ki si zaslužijo, da jih sliši svet. Danes te zgodbe pripovedovalsko prepevam ob kitari – knapuške pesmi v rock'n'roll preobleki, občasno pa tudi kakšna balada.</p>
-          <p>Že več kot 20 let živim v Kamniku, kjer me je očarala lepota Kamniške Bistrice. A srce še vedno bije za Zasavje in za tiste čase pod zemljo.</p>
-          <p>Skupaj z glasbeniki, kot so <strong>Loški tercet</strong>, <strong>Luka Groboljšek</strong>, <strong>Jernej Pikelj</strong> in <strong>Matej Zupančič</strong>, ustvarjam glasbo, ki ohranja spomin na rudarsko dediščino.</p>
-          <div class="about__stats">
+        <div class="about__text">
+          <p class="about__lead fade-in" data-fade-delay="150">Bivši rudar iz Kisovca, danes kantavtor, ki rudarske zgodbe preobleče v rock'n'roll.</p>
+          <p class="fade-in" data-fade-delay="200">Rojen in odraščal sem v Kisovcu, rudarskem naselju v srcu Zasavja. Leta sem preživel pod zemljo in spoznal zgodbe, ki si zaslužijo, da jih sliši svet. Danes te zgodbe pripovedovalsko prepevam ob kitari – knapuške pesmi v rock'n'roll preobleki, občasno pa tudi kakšna balada.</p>
+          <p class="fade-in" data-fade-delay="250">Že več kot 20 let živim v Kamniku, kjer me je očarala lepota Kamniške Bistrice. A srce še vedno bije za Zasavje in za tiste čase pod zemljo.</p>
+          <p class="fade-in" data-fade-delay="300">Skupaj z glasbeniki, kot so <strong>Loški tercet</strong>, <strong>Luka Groboljšek</strong>, <strong>Jernej Pikelj</strong> in <strong>Matej Zupančič</strong>, ustvarjam glasbo, ki ohranja spomin na rudarsko dediščino.</p>
+          <div class="about__stats fade-in" data-fade-delay="400">
             <div class="about__stat">
-              <span class="about__stat-number">70%</span>
+              <span class="about__stat-number" data-count-to="70" data-count-suffix="%">0%</span>
               <span class="about__stat-label">rudarskih pesmi</span>
             </div>
             <div class="about__stat">
-              <span class="about__stat-number">20+</span>
+              <span class="about__stat-number" data-count-to="20" data-count-suffix="+">0+</span>
               <span class="about__stat-label">let v Kamniku</span>
             </div>
             <div class="about__stat">
-              <span class="about__stat-number">100%</span>
+              <span class="about__stat-number" data-count-to="100" data-count-suffix="%">0%</span>
               <span class="about__stat-label">avtentičnih zgodb</span>
             </div>
           </div>
@@ -85,11 +139,12 @@
 
   <!-- Glasba -->
   <section class="section music" id="music">
+    <div class="section__divider section__divider--top"></div>
     <div class="container">
-      <h2 class="section__title fade-in">Glasba</h2>
-      <p class="section__subtitle fade-in">Knapuške zgodbe v rock'n'roll preobleki</p>
+      <h2 class="section__title fade-in" data-fade-delay="0">Glasba</h2>
+      <p class="section__subtitle fade-in" data-fade-delay="100">Knapuške zgodbe v rock'n'roll preobleki</p>
       <div class="music__grid">
-        <div class="music__card music__card--featured fade-in">
+        <div class="music__card music__card--featured fade-in" data-fade-delay="200">
           <div class="music__card-badge">Nova pesem</div>
           <div class="music__card-image">
             <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Tvoje zelene oči">
@@ -110,7 +165,7 @@
             </div>
           </div>
         </div>
-        <div class="music__card fade-in">
+        <div class="music__card music__card--tilted-left fade-in" data-fade-delay="300">
           <div class="music__card-image music__card-image--placeholder">
             <div class="music__card-play">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="currentColor">
@@ -123,7 +178,7 @@
             <p>Nove pesmi prihajajo. Spremljaj me na socialnih omrežjih za novice!</p>
           </div>
         </div>
-        <div class="music__card fade-in">
+        <div class="music__card music__card--tilted-right fade-in" data-fade-delay="400">
           <div class="music__card-image music__card-image--placeholder">
             <div class="music__card-play">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="currentColor">
@@ -140,19 +195,87 @@
     </div>
   </section>
 
+  <!-- Marquee 2: med glasba in galerija -->
+  <div class="marquee marquee--ghost">
+    <div class="marquee__track marquee__track--reverse">
+      <div class="marquee__content">
+        <span>Kantavtor</span>
+        <span class="marquee__dot"></span>
+        <span>Pod zemljo</span>
+        <span class="marquee__dot"></span>
+        <span>Kamnik</span>
+        <span class="marquee__dot"></span>
+        <span>Zgodbe</span>
+        <span class="marquee__dot"></span>
+        <span>Balada</span>
+        <span class="marquee__dot"></span>
+        <span>Kantavtor</span>
+        <span class="marquee__dot"></span>
+        <span>Pod zemljo</span>
+        <span class="marquee__dot"></span>
+        <span>Kamnik</span>
+        <span class="marquee__dot"></span>
+        <span>Zgodbe</span>
+        <span class="marquee__dot"></span>
+        <span>Balada</span>
+        <span class="marquee__dot"></span>
+      </div>
+      <div class="marquee__content" aria-hidden="true">
+        <span>Kantavtor</span>
+        <span class="marquee__dot"></span>
+        <span>Pod zemljo</span>
+        <span class="marquee__dot"></span>
+        <span>Kamnik</span>
+        <span class="marquee__dot"></span>
+        <span>Zgodbe</span>
+        <span class="marquee__dot"></span>
+        <span>Balada</span>
+        <span class="marquee__dot"></span>
+        <span>Kantavtor</span>
+        <span class="marquee__dot"></span>
+        <span>Pod zemljo</span>
+        <span class="marquee__dot"></span>
+        <span>Kamnik</span>
+        <span class="marquee__dot"></span>
+        <span>Zgodbe</span>
+        <span class="marquee__dot"></span>
+        <span>Balada</span>
+        <span class="marquee__dot"></span>
+      </div>
+    </div>
+  </div>
+
   <!-- Galerija -->
   <section class="section gallery" id="gallery">
+    <div class="section__divider section__divider--top"></div>
     <div class="container">
-      <h2 class="section__title fade-in">Galerija</h2>
-      <div class="gallery__grid">
-        <div class="gallery__item fade-in" data-src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg">
-          <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Uroš Ržišnik na odru" loading="lazy">
+      <h2 class="section__title fade-in" data-fade-delay="0">Galerija</h2>
+      <div class="gallery__swiper-wrap fade-in" data-fade-delay="200">
+        <div class="swiper gallery__swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="gallery__item" data-src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg">
+                <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Uroš Ržišnik na odru" loading="lazy">
+              </div>
+            </div>
+            <!-- Dodajte več slik tukaj po istem vzorcu:
+            <div class="swiper-slide">
+              <div class="gallery__item" data-src="URL_SLIKE">
+                <img src="URL_SLIKE" alt="Opis slike" loading="lazy">
+              </div>
+            </div>
+            -->
+          </div>
+          <div class="swiper-pagination"></div>
         </div>
-        <!-- Dodajte več slik tukaj po istem vzorcu:
-        <div class="gallery__item fade-in" data-src="URL_SLIKE">
-          <img src="URL_SLIKE" alt="Opis slike" loading="lazy">
+        <div class="gallery__nav">
+          <button class="gallery__nav-btn gallery__nav-prev" aria-label="Prejšnja">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="gallery__nav-btn gallery__nav-next" aria-label="Naslednja">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </div>
-        -->
       </div>
     </div>
 
@@ -167,11 +290,39 @@
 
   <!-- Koncerti -->
   <section class="section events" id="events">
+    <div class="section__divider section__divider--top"></div>
     <div class="container">
-      <h2 class="section__title fade-in">Koncerti</h2>
-      <p class="section__subtitle fade-in">Prihodni nastopi in dogodki</p>
+      <h2 class="section__title fade-in" data-fade-delay="0">Koncerti</h2>
+      <p class="section__subtitle fade-in" data-fade-delay="100">Prihodni nastopi in dogodki</p>
+
+      <!-- Countdown timer -->
+      <div class="countdown fade-in" data-fade-delay="200" id="countdown" data-target-date="2025-09-01T20:00:00">
+        <div class="countdown__label">Do naslednjega nastopa</div>
+        <div class="countdown__timer">
+          <div class="countdown__unit">
+            <span class="countdown__number" id="countDays">00</span>
+            <span class="countdown__text">Dni</span>
+          </div>
+          <div class="countdown__sep">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__number" id="countHours">00</span>
+            <span class="countdown__text">Ur</span>
+          </div>
+          <div class="countdown__sep">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__number" id="countMinutes">00</span>
+            <span class="countdown__text">Minut</span>
+          </div>
+          <div class="countdown__sep">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__number" id="countSeconds">00</span>
+            <span class="countdown__text">Sekund</span>
+          </div>
+        </div>
+      </div>
+
       <div class="events__list">
-        <div class="events__item fade-in">
+        <div class="events__item fade-in" data-fade-delay="300">
           <div class="events__date">
             <span class="events__day">TBA</span>
             <span class="events__month">2025</span>
@@ -185,17 +336,18 @@
           </div>
         </div>
       </div>
-      <p class="events__note fade-in">Za aktualne informacije o nastopih me spremljaj na socialnih omrežjih.</p>
+      <p class="events__note fade-in" data-fade-delay="400">Za aktualne informacije o nastopih me spremljaj na socialnih omrežjih.</p>
     </div>
   </section>
 
   <!-- Kontakt -->
   <section class="section contact" id="contact">
+    <div class="section__divider section__divider--top"></div>
     <div class="container">
-      <h2 class="section__title fade-in">Kontakt</h2>
-      <p class="section__subtitle fade-in">Povpraševanja za nastope in sodelovanja</p>
+      <h2 class="section__title fade-in" data-fade-delay="0">Kontakt</h2>
+      <p class="section__subtitle fade-in" data-fade-delay="100">Povpraševanja za nastope in sodelovanja</p>
       <div class="contact__grid">
-        <div class="contact__info fade-in">
+        <div class="contact__info fade-in" data-fade-delay="200">
           <div class="contact__item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -224,7 +376,7 @@
             </a>
           </div>
         </div>
-        <form class="contact__form fade-in" id="contactForm">
+        <form class="contact__form fade-in" data-fade-delay="300" id="contactForm">
           <div class="contact__form-group">
             <input type="text" name="name" placeholder="Vaše ime" required>
           </div>
@@ -253,6 +405,7 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

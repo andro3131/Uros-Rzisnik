@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.classList.toggle('active');
   });
 
-  // Close mobile menu on link click
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
@@ -31,7 +30,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- Fade-in on scroll (Intersection Observer) ---------- */
+  /* ---------- Hero Sticky Parallax ---------- */
+  const heroWrap = document.querySelector('.hero-wrap');
+  const hero = document.querySelector('.hero');
+  const heroBg = document.querySelector('.hero__bg');
+  const heroContent = document.querySelector('.hero__content');
+  const heroScroll = document.querySelector('.hero__scroll');
+
+  if (heroWrap && hero) {
+    const updateHeroParallax = () => {
+      const wrapRect = heroWrap.getBoundingClientRect();
+      const wrapHeight = heroWrap.offsetHeight;
+      const viewH = window.innerHeight;
+      // progress: 0 when hero-wrap top is at viewport top, 1 at end
+      const scrolled = Math.max(0, -wrapRect.top);
+      const progress = Math.min(1, scrolled / (wrapHeight - viewH));
+
+      if (heroBg) {
+        heroBg.style.transform = `translateY(${progress * 40}px) scale(${1 + progress * 0.08})`;
+      }
+      if (heroContent) {
+        heroContent.style.opacity = 1 - progress * 2.5;
+        heroContent.style.transform = `translateY(${progress * -80}px)`;
+      }
+      if (heroScroll) {
+        heroScroll.style.opacity = 1 - progress * 4;
+      }
+    };
+
+    window.addEventListener('scroll', updateHeroParallax, { passive: true });
+    updateHeroParallax();
+  }
+
+  /* ---------- Staggered Fade-in (Intersection Observer) ---------- */
   const fadeEls = document.querySelectorAll('.fade-in');
 
   if ('IntersectionObserver' in window) {
@@ -39,21 +70,81 @@ document.addEventListener('DOMContentLoaded', () => {
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            const delay = parseInt(entry.target.getAttribute('data-fade-delay') || '0', 10);
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, delay);
             fadeObserver.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     );
 
     fadeEls.forEach(el => fadeObserver.observe(el));
   } else {
-    // Fallback: show everything
     fadeEls.forEach(el => el.classList.add('visible'));
   }
 
-  /* ---------- Gallery Lightbox ---------- */
+  /* ---------- Counter Animation ---------- */
+  const counterEls = document.querySelectorAll('[data-count-to]');
+
+  if ('IntersectionObserver' in window && counterEls.length > 0) {
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counterEls.forEach(el => counterObserver.observe(el));
+  }
+
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-count-to'), 10);
+    const suffix = el.getAttribute('data-count-suffix') || '';
+    const duration = 1500;
+    const start = performance.now();
+
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = current + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  /* ---------- Gallery: Swiper + Lightbox ---------- */
+  const gallerySwiper = new Swiper('.gallery__swiper', {
+    slidesPerView: 'auto',
+    centeredSlides: true,
+    spaceBetween: 20,
+    loop: false,
+    grabCursor: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      prevEl: '.gallery__nav-prev',
+      nextEl: '.gallery__nav-next',
+    },
+  });
+
+  /* Lightbox */
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const galleryItems = document.querySelectorAll('.gallery__item');
@@ -92,18 +183,61 @@ document.addEventListener('DOMContentLoaded', () => {
   lightbox.querySelector('.lightbox__prev').addEventListener('click', showPrev);
   lightbox.querySelector('.lightbox__next').addEventListener('click', showNext);
 
-  // Close lightbox on overlay click
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('active')) return;
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') showPrev();
     if (e.key === 'ArrowRight') showNext();
   });
+
+  /* ---------- Countdown Timer ---------- */
+  const countdownEl = document.getElementById('countdown');
+
+  if (countdownEl) {
+    const targetDate = new Date(countdownEl.getAttribute('data-target-date')).getTime();
+    const daysEl = document.getElementById('countDays');
+    const hoursEl = document.getElementById('countHours');
+    const minutesEl = document.getElementById('countMinutes');
+    const secondsEl = document.getElementById('countSeconds');
+
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      const pad = (n) => String(n).padStart(2, '0');
+
+      // Tick animation on seconds change
+      if (secondsEl.textContent !== pad(seconds)) {
+        secondsEl.classList.add('tick');
+        setTimeout(() => secondsEl.classList.remove('tick'), 200);
+      }
+
+      daysEl.textContent = pad(days);
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
 
   /* ---------- Contact form placeholder handler ---------- */
   const contactForm = document.getElementById('contactForm');
@@ -146,5 +280,18 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.addEventListener('scroll', highlightNav, { passive: true });
+
+  /* ---------- Marquee pause on hover ---------- */
+  document.querySelectorAll('.marquee').forEach(marquee => {
+    const track = marquee.querySelector('.marquee__track');
+    if (track) {
+      marquee.addEventListener('mouseenter', () => {
+        track.style.animationPlayState = 'paused';
+      });
+      marquee.addEventListener('mouseleave', () => {
+        track.style.animationPlayState = 'running';
+      });
+    }
+  });
 
 });
