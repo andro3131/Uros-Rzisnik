@@ -589,6 +589,7 @@ a:hover {
 .about__text p {
   margin-bottom: 20px;
   color: var(--clr-text-muted);
+  text-align: justify;
 }
 
 .about__lead {
@@ -640,6 +641,7 @@ a:hover {
   font-size: 1.05rem;
   line-height: 1.8;
   margin-bottom: 16px;
+  text-align: justify;
 }
 
 .interview__text:last-child {
