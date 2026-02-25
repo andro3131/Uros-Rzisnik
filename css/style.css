@@ -448,6 +448,7 @@ a:hover {
 
 .marquee__track--reverse {
   animation-direction: reverse;
+  animation-duration: 60s;
 }
 
 @keyframes marquee-scroll {
