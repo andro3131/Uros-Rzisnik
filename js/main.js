@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroBg = document.querySelector('.hero__bg');
   const heroContent = document.querySelector('.hero__content');
   const heroScroll = document.querySelector('.hero__scroll');
+  const heroCta = document.querySelector('.hero__cta');
 
   if (heroWrap && hero) {
     const heroBgImg = heroBg ? heroBg.querySelector('img') : null;
@@ -68,6 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
           heroContent.style.animation = 'none';
           heroContent.style.opacity = 1 - progress * 2.5;
           heroContent.style.transform = `translateY(${progress * -80}px)`;
+        }
+      }
+      if (heroCta) {
+        if (progress > 0.01) {
+          heroCta.style.animation = 'none';
+          heroCta.style.opacity = 1 - progress * 2.5;
+          heroCta.style.transform = `translateX(-50%) translateY(${progress * -60}px)`;
         }
       }
       if (heroScroll) {
@@ -131,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = Math.round(eased * target);
       el.textContent = current + suffix;
@@ -142,6 +149,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     requestAnimationFrame(update);
+  }
+
+  // Repeat counter animation every 8 seconds
+  if (counterEls.length > 0) {
+    setInterval(() => {
+      counterEls.forEach(el => {
+        el.textContent = '0' + (el.getAttribute('data-count-suffix') || '');
+        animateCounter(el);
+      });
+    }, 8000);
   }
 
   /* ---------- Gallery: Swiper + Lightbox ---------- */
