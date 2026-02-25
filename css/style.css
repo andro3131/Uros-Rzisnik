@@ -1166,6 +1166,16 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--clr-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer__logo-icon {
+  height: 1.4em;
+  width: auto;
+  object-fit: contain;
 }
 
 .footer__tagline {
