@@ -39,16 +39,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroCta = document.querySelector('.hero__cta');
 
   if (heroWrap && hero) {
-    const heroBgImg = heroBg ? heroBg.querySelector('img') : null;
+    const heroBgMedia = heroBg ? heroBg.querySelector('video, img') : null;
+    const heroVideo = heroBg ? heroBg.querySelector('video') : null;
     let heroZoomDone = false;
+    let videoDuration = 0;
+    let videoReadyForScroll = false;
 
     // Wait for the CSS zoom-in animation to finish before applying scroll transforms
-    if (heroBgImg) {
-      heroBgImg.addEventListener('animationend', () => {
+    if (heroBgMedia) {
+      heroBgMedia.addEventListener('animationend', () => {
         heroZoomDone = true;
       });
       // Fallback in case the event was missed
       setTimeout(() => { heroZoomDone = true; }, 2600);
+    }
+
+    // Hero video: autoplay → slow down at 50% → pause at 66% → scroll-driven last third
+    if (heroVideo) {
+      heroVideo.addEventListener('loadedmetadata', () => {
+        videoDuration = heroVideo.duration;
+      });
+
+      heroVideo.addEventListener('timeupdate', () => {
+        if (!videoDuration) return;
+        const pct = heroVideo.currentTime / videoDuration;
+
+        if (pct >= 0.66) {
+          heroVideo.pause();
+          heroVideo.playbackRate = 1;
+          videoReadyForScroll = true;
+        } else if (pct >= 0.5) {
+          // Linearly slow down from 1.0 to 0.1 between 50%–66%
+          const slowPct = (pct - 0.5) / 0.16;
+          heroVideo.playbackRate = Math.max(0.1, 1 - slowPct * 0.9);
+        }
+      });
     }
 
     const updateHeroParallax = () => {
@@ -57,6 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const viewH = window.innerHeight;
       const scrolled = Math.max(0, -wrapRect.top);
       const progress = Math.min(1, scrolled / (wrapHeight - viewH));
+
+      // Scroll-driven video: map scroll progress to last third of video
+      if (heroVideo && videoReadyForScroll && videoDuration) {
+        const startTime = videoDuration * 0.66;
+        const endTime = videoDuration;
+        heroVideo.currentTime = startTime + progress * (endTime - startTime);
+      }
 
       if (heroBg) {
         if (heroZoomDone || progress > 0.01) {
