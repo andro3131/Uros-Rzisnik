@@ -46,11 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let videoReadyForScroll = false;
 
     // Wait for the CSS zoom-in animation to finish before applying scroll transforms
-    if (heroBgMedia) {
+    if (heroVideo) {
+      // Video has no zoom animation, allow scroll transforms immediately
+      heroZoomDone = true;
+    } else if (heroBgMedia) {
       heroBgMedia.addEventListener('animationend', () => {
         heroZoomDone = true;
       });
-      // Fallback in case the event was missed
       setTimeout(() => { heroZoomDone = true; }, 2600);
     }
 
