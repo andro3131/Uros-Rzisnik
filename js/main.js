@@ -54,35 +54,34 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => { heroZoomDone = true; }, 2600);
     }
 
-    // Hero video: wait for ready → play with easeOut → pause at 2/3 → scroll-driven last third
+    // Hero video: play full video, slow down last 10%, then scroll = parallax zoom on last frame
     if (heroVideo) {
-      const introStop = () => videoDuration * 0.66;
-
-      // Wait until video is seekable, then start manually
       const initVideo = () => {
         if (videoReadyForScroll) return;
         heroVideo.pause();
         videoDuration = heroVideo.duration;
         heroVideo.currentTime = 0.01;
 
-        // Start playback after short delay
         setTimeout(() => {
           heroVideo.playbackRate = 1;
           heroVideo.play();
 
-          // rAF loop: easeOut slowdown towards 2/3 mark
           let rafId;
           function checkProgress() {
-            const stop = introStop();
-            if (heroVideo.currentTime >= stop - 0.05) {
+            const dur = videoDuration;
+            const pct = heroVideo.currentTime / dur;
+
+            // Video ended or very close to end
+            if (pct >= 0.99 || heroVideo.ended) {
               heroVideo.pause();
-              heroVideo.currentTime = stop;
               videoReadyForScroll = true;
               return;
             }
-            // EaseOut: gentle slowdown, never below 0.5
-            const progress = heroVideo.currentTime / stop;
-            heroVideo.playbackRate = Math.max(0.5, 1 * (1 - progress * 0.5));
+            // Last 10%: gentle slowdown to 0.5x
+            if (pct >= 0.9) {
+              const slowPct = (pct - 0.9) / 0.1;
+              heroVideo.playbackRate = Math.max(0.5, 1 - slowPct * 0.5);
+            }
             rafId = requestAnimationFrame(checkProgress);
           }
           rafId = requestAnimationFrame(checkProgress);
@@ -104,18 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const viewH = window.innerHeight;
       const scrolled = Math.max(0, -wrapRect.top);
       const progress = Math.min(1, scrolled / (wrapHeight - viewH));
-
-      // Scroll-driven video: map scroll progress to last third of video
-      if (heroVideo && videoReadyForScroll && videoDuration) {
-        const startTime = videoDuration * 0.66;
-        const scrollHalf = videoDuration - startTime;
-        const targetTime = startTime + progress * scrollHalf;
-        if (heroVideo.fastSeek) {
-          heroVideo.fastSeek(targetTime);
-        } else {
-          heroVideo.currentTime = targetTime;
-        }
-      }
 
       if (heroBg) {
         if (heroZoomDone || progress > 0.01) {
