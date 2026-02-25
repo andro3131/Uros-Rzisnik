@@ -430,7 +430,7 @@ a:hover {
 
 .marquee--accent {
   background: var(--clr-accent);
-  transform: rotate(-1.5deg) scale(1.02);
+  transform: rotate(-2deg) scale(1.02);
   margin: -10px 0;
 }
 
@@ -1457,7 +1457,7 @@ body::before {
   }
 
   .marquee--accent {
-    transform: rotate(-1.5deg) scale(1.04);
+    transform: rotate(-2deg) scale(1.04);
   }
 
   .countdown {
