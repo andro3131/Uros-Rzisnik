@@ -338,9 +338,9 @@ a:hover {
   z-index: 1;
   background: linear-gradient(
     to bottom,
-    rgba(10, 10, 10, 0.3) 0%,
-    rgba(10, 10, 10, 0.5) 40%,
-    rgba(10, 10, 10, 0.85) 100%
+    rgba(10, 10, 10, 0.15) 0%,
+    rgba(10, 10, 10, 0.35) 40%,
+    rgba(10, 10, 10, 0.75) 100%
   );
 }
 
