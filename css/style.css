@@ -101,6 +101,12 @@ a:hover {
   margin-bottom: 48px;
 }
 
+.section__subtitle--accent {
+  color: var(--clr-accent);
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
 /* ---------- Section Diagonal Dividers ---------- */
 .section__divider {
   position: absolute;
