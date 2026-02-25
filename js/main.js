@@ -54,34 +54,48 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => { heroZoomDone = true; }, 2600);
     }
 
-    // Hero video: autoplay → slow down at 50% → pause at 66% → scroll-driven last third
+    // Hero video: wait for ready → play with easeOut → pause at 2/3 → scroll-driven last third
     if (heroVideo) {
-      // Use rAF loop for precise video control
-      function watchVideo() {
+      const introStop = () => videoDuration * 0.66;
+
+      // Wait until video is seekable, then start manually
+      const initVideo = () => {
         if (videoReadyForScroll) return;
+        heroVideo.pause();
+        videoDuration = heroVideo.duration;
+        heroVideo.currentTime = 0.01;
 
-        // Read duration directly from element (loadedmetadata may have fired already)
-        const dur = heroVideo.duration;
-        if (!dur || isNaN(dur) || heroVideo.paused) {
-          requestAnimationFrame(watchVideo);
-          return;
-        }
-        videoDuration = dur;
-        const pct = heroVideo.currentTime / dur;
-
-        if (pct >= 0.66) {
-          heroVideo.pause();
-          heroVideo.currentTime = dur * 0.66;
+        // Start playback after short delay
+        setTimeout(() => {
           heroVideo.playbackRate = 1;
-          videoReadyForScroll = true;
-          return;
-        } else if (pct >= 0.5) {
-          const slowPct = (pct - 0.5) / 0.16;
-          heroVideo.playbackRate = Math.max(0.1, 1 - slowPct * 0.9);
-        }
-        requestAnimationFrame(watchVideo);
+          heroVideo.play();
+
+          // rAF loop: easeOut slowdown towards 2/3 mark
+          let rafId;
+          function checkProgress() {
+            const stop = introStop();
+            if (heroVideo.currentTime >= stop - 0.05) {
+              heroVideo.pause();
+              heroVideo.currentTime = stop;
+              videoReadyForScroll = true;
+              return;
+            }
+            // EaseOut: gentle slowdown, never below 0.5
+            const progress = heroVideo.currentTime / stop;
+            heroVideo.playbackRate = Math.max(0.5, 1 * (1 - progress * 0.5));
+            rafId = requestAnimationFrame(checkProgress);
+          }
+          rafId = requestAnimationFrame(checkProgress);
+          heroVideo.addEventListener('pause', () => cancelAnimationFrame(rafId), { once: true });
+        }, 400);
+      };
+
+      if (heroVideo.readyState >= 2) {
+        initVideo();
+      } else {
+        heroVideo.addEventListener('loadeddata', initVideo, { once: true });
+        heroVideo.addEventListener('canplay', initVideo, { once: true });
       }
-      requestAnimationFrame(watchVideo);
     }
 
     const updateHeroParallax = () => {
@@ -94,8 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Scroll-driven video: map scroll progress to last third of video
       if (heroVideo && videoReadyForScroll && videoDuration) {
         const startTime = videoDuration * 0.66;
-        const endTime = videoDuration;
-        heroVideo.currentTime = startTime + progress * (endTime - startTime);
+        const scrollHalf = videoDuration - startTime;
+        const targetTime = startTime + progress * scrollHalf;
+        if (heroVideo.fastSeek) {
+          heroVideo.fastSeek(targetTime);
+        } else {
+          heroVideo.currentTime = targetTime;
+        }
       }
 
       if (heroBg) {
