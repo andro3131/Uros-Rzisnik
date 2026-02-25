@@ -77,9 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
               videoReadyForScroll = true;
               return;
             }
-            // Last 10%: gentle slowdown to 0.5x
-            if (pct >= 0.9) {
-              const slowPct = (pct - 0.9) / 0.1;
+            // Last 15%: gentle slowdown to 0.5x
+            if (pct >= 0.85) {
+              const slowPct = (pct - 0.85) / 0.15;
               heroVideo.playbackRate = Math.max(0.5, 1 - slowPct * 0.5);
             }
             rafId = requestAnimationFrame(checkProgress);
