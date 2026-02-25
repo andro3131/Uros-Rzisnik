@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Hero video: play full video, slow down last 15%, then scroll = parallax zoom on last frame
+    let videoIsPlaying = false;
+
     if (heroVideo) {
       let videoRafId;
 
@@ -80,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         heroVideo.currentTime = 0.01;
         heroVideo.playbackRate = 1;
         videoReadyForScroll = false;
+        videoIsPlaying = true;
         resetHeroStyles();
         heroVideo.play();
 
@@ -90,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (pct >= 0.99 || heroVideo.ended) {
             heroVideo.pause();
             videoReadyForScroll = true;
+            videoIsPlaying = false;
             return;
           }
           // Last 15%: gentle slowdown to 0.2x
@@ -147,6 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const viewH = window.innerHeight;
       const scrolled = Math.max(0, -wrapRect.top);
       const progress = Math.min(1, scrolled / (wrapHeight - viewH));
+
+      // Skip parallax overrides while video is playing (e.g. during scroll-to-top)
+      if (videoIsPlaying) return;
 
       if (heroBg) {
         if (progress > 0.01 && videoReadyForScroll) {
