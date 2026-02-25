@@ -60,11 +60,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroVideo) {
       let videoRafId;
 
+      const resetHeroStyles = () => {
+        if (heroBg) heroBg.style.transform = '';
+        if (heroContent) {
+          heroContent.style.animation = '';
+          heroContent.style.opacity = '';
+          heroContent.style.transform = '';
+        }
+        if (heroCta) {
+          heroCta.style.animation = '';
+          heroCta.style.opacity = '';
+          heroCta.style.transform = '';
+        }
+        if (heroScroll) heroScroll.style.opacity = '';
+      };
+
       const playHeroVideo = () => {
         videoDuration = heroVideo.duration;
         heroVideo.currentTime = 0.01;
         heroVideo.playbackRate = 1;
         videoReadyForScroll = false;
+        resetHeroStyles();
         heroVideo.play();
 
         function checkProgress() {
@@ -133,8 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const progress = Math.min(1, scrolled / (wrapHeight - viewH));
 
       if (heroBg) {
-        if (heroZoomDone || progress > 0.01) {
+        if (progress > 0.01 && videoReadyForScroll) {
           heroBg.style.transform = `translateY(${progress * 40}px) scale(${1 + progress * 0.08})`;
+        } else if (progress <= 0.01) {
+          heroBg.style.transform = '';
         }
       }
       if (heroContent) {
