@@ -138,11 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       if (heroContent) {
-        // Only override opacity/transform after the intro animation completes
         if (progress > 0.01) {
           heroContent.style.animation = 'none';
           heroContent.style.opacity = 1 - progress * 2.5;
           heroContent.style.transform = `translateY(${progress * -80}px)`;
+        } else {
+          heroContent.style.animation = '';
+          heroContent.style.opacity = '';
+          heroContent.style.transform = '';
         }
       }
       if (heroCta) {
@@ -150,6 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
           heroCta.style.animation = 'none';
           heroCta.style.opacity = 1 - progress * 2.5;
           heroCta.style.transform = `translateY(${progress * -60}px)`;
+        } else {
+          heroCta.style.animation = '';
+          heroCta.style.opacity = '';
+          heroCta.style.transform = '';
         }
       }
       if (heroScroll) {
