@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -145,54 +144,34 @@
     <div class="container">
       <h2 class="section__title fade-in" data-fade-delay="0">Glasba</h2>
       <p class="section__subtitle fade-in" data-fade-delay="100">Knapuske zgodbe v rock'n'roll preobleki</p>
-      <div class="music__grid">
-        <div class="music__card music__card--featured fade-in" data-fade-delay="200">
-          <div class="music__card-badge">Nova pesem</div>
-          <div class="music__card-image">
-            <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Tvoje zelene oči">
-            <div class="music__card-play">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="currentColor">
-                <path d="M18 12l18 12-18 12z"/>
-              </svg>
-            </div>
+      <div class="music__video-grid">
+        <div class="video-card fade-in" data-fade-delay="200">
+          <div class="video-card__embed">
+            <lite-youtube videoid="L5b7Ru7S6_0"></lite-youtube>
           </div>
-          <div class="music__card-info">
-            <h3>Tvoje zelene oči</h3>
-            <p>Pesem posvečena ženi – ljubezenska balada, ki jo je zložil Luka Groboljšek. Z glasbo kontrabasa, harmonike in kitare pripoveduje o neizmerni ljubezni in lepoti Kamniške krajine.</p>
-            <div class="music__card-credits">
-              <span>Besedilo: Luka Groboljšek</span>
-              <span>Harmonika: Jernej Pikelj</span>
-              <span>Kitara: Matej Zupančič</span>
-              <span>Studio: Mars Trebnje</span>
-            </div>
-          </div>
+          <h3 class="video-card__title">Tvoje zelene oči</h3>
         </div>
-        <div class="music__card music__card--tilted-left fade-in" data-fade-delay="300">
-          <div class="music__card-image music__card-image--placeholder">
-            <div class="music__card-play">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="currentColor">
-                <path d="M18 12l18 12-18 12z"/>
-              </svg>
-            </div>
+        <div class="video-card fade-in" data-fade-delay="300">
+          <div class="video-card__embed">
+            <lite-youtube videoid="0Vsvf0fWgEQ"></lite-youtube>
           </div>
-          <div class="music__card-info">
-            <h3>Kmalu na voljo</h3>
-            <p>Nove pesmi prihajajo. Spremljaj me na socialnih omrežjih za novice!</p>
-          </div>
+          <h3 class="video-card__title">Svoboda</h3>
         </div>
-        <div class="music__card music__card--tilted-right fade-in" data-fade-delay="400">
-          <div class="music__card-image music__card-image--placeholder">
-            <div class="music__card-play">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="currentColor">
-                <path d="M18 12l18 12-18 12z"/>
-              </svg>
-            </div>
+        <div class="video-card fade-in" data-fade-delay="400">
+          <div class="video-card__embed">
+            <lite-youtube videoid="Rq5_ncLnTB4"></lite-youtube>
           </div>
-          <div class="music__card-info">
-            <h3>Kmalu na voljo</h3>
-            <p>Nove pesmi prihajajo. Spremljaj me na socialnih omrežjih za novice!</p>
-          </div>
+          <h3 class="video-card__title">Naša knapuska kri</h3>
         </div>
+        <div class="video-card fade-in" data-fade-delay="500">
+          <div class="video-card__embed">
+            <lite-youtube videoid="P03MxT6H_Xo"></lite-youtube>
+          </div>
+          <h3 class="video-card__title">Mati knapuska</h3>
+        </div>
+      </div>
+      <div class="music__more fade-in" data-fade-delay="600">
+        <a href="glasba.html" class="btn btn--primary">Vse pesmi (21)</a>
       </div>
     </div>
   </section>
@@ -252,49 +231,29 @@
     <div class="section__divider section__divider--top"></div>
     <div class="container">
       <h2 class="section__title fade-in" data-fade-delay="0">Galerija</h2>
-      <div class="gallery__swiper-wrap fade-in" data-fade-delay="200">
-        <div class="swiper gallery__swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="gallery__item" data-src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg">
-                <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Uroš Ržišnik na odru" loading="lazy">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="gallery__item" data-src="https://uros-rzisnik-cdn.b-cdn.net/2025-11-11%20Uros%CC%8C%20v%20jami-11.jpg">
-                <img src="https://uros-rzisnik-cdn.b-cdn.net/2025-11-11%20Uros%CC%8C%20v%20jami-11.jpg" alt="Uroš v jami" loading="lazy">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="gallery__item" data-src="https://uros-rzisnik-cdn.b-cdn.net/2025-11-11%20Uros%CC%8C%20v%20jami-17.jpg">
-                <img src="https://uros-rzisnik-cdn.b-cdn.net/2025-11-11%20Uros%CC%8C%20v%20jami-17.jpg" alt="Uroš v jami" loading="lazy">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="gallery__item" data-src="https://uros-rzisnik-cdn.b-cdn.net/2025-11-11%20Uros%CC%8C%20v%20jami-22.jpg">
-                <img src="https://uros-rzisnik-cdn.b-cdn.net/2025-11-11%20Uros%CC%8C%20v%20jami-22.jpg" alt="Uroš v jami" loading="lazy">
-              </div>
-            </div>
-          </div>
-          <div class="swiper-pagination"></div>
+      <div class="gallery__thumb-grid">
+        <div class="gallery__thumb fade-in" data-fade-delay="100">
+          <img src="https://uros-rzisnik-cdn.b-cdn.net/480328787_1726771948263052_4133550290010691417_n%20(1).jpg" alt="Uroš Ržišnik na odru" loading="lazy">
         </div>
-        <div class="gallery__nav">
-          <button class="gallery__nav-btn gallery__nav-prev" aria-label="Prejšnja">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          </button>
-          <button class="gallery__nav-btn gallery__nav-next" aria-label="Naslednja">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+        <div class="gallery__thumb fade-in" data-fade-delay="150">
+          <img src="https://uros-rzisnik-cdn.b-cdn.net/Uros-Rzisnik_Foto-Gasper-Plevel_1.jpg" alt="Foto Gašper Plevel" loading="lazy">
+        </div>
+        <div class="gallery__thumb fade-in" data-fade-delay="200">
+          <img src="https://uros-rzisnik-cdn.b-cdn.net/Uros-Rzisnik_Foto-Gasper-Plevel_3.jpg" alt="Foto Gašper Plevel" loading="lazy">
+        </div>
+        <div class="gallery__thumb fade-in" data-fade-delay="250">
+          <img src="https://uros-rzisnik-cdn.b-cdn.net/2025-11-11%20Uros%CC%8C%20v%20jami-11.jpg" alt="Uroš v jami" loading="lazy">
+        </div>
+        <div class="gallery__thumb fade-in" data-fade-delay="300">
+          <img src="https://uros-rzisnik-cdn.b-cdn.net/2025-11-11%20Uros%CC%8C%20v%20jami-17.jpg" alt="Uroš v jami" loading="lazy">
+        </div>
+        <div class="gallery__thumb fade-in" data-fade-delay="350">
+          <img src="https://uros-rzisnik-cdn.b-cdn.net/Screenshot%202026-02-25%20at%2012.56.19.png" alt="Uroš Ržišnik" loading="lazy">
         </div>
       </div>
-    </div>
-
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-      <button class="lightbox__close" aria-label="Zapri">&times;</button>
-      <button class="lightbox__prev" aria-label="Prejšnja">&lsaquo;</button>
-      <button class="lightbox__next" aria-label="Naslednja">&rsaquo;</button>
-      <img class="lightbox__img" id="lightboxImg" src="" alt="">
+      <div class="gallery__more fade-in" data-fade-delay="400">
+        <a href="galerija.html" class="btn btn--primary">Prikaži vse (9)</a>
+      </div>
     </div>
   </section>
 
@@ -369,19 +328,14 @@
             </div>
           </div>
           <div class="contact__socials">
-            <a href="#" class="contact__social" aria-label="Facebook" title="Facebook">
+            <a href="https://www.facebook.com/uros.rzisnik" target="_blank" rel="noopener" class="contact__social" aria-label="Facebook" title="Facebook">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
               </svg>
             </a>
-            <a href="#" class="contact__social" aria-label="YouTube" title="YouTube">
+            <a href="https://www.youtube.com/@urosrzisnik2585" target="_blank" rel="noopener" class="contact__social" aria-label="YouTube" title="YouTube">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-            </a>
-            <a href="#" class="contact__social" aria-label="Instagram" title="Instagram">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
               </svg>
             </a>
           </div>
@@ -415,7 +369,7 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/lite-yt-embed.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (progress > 0.01) {
           heroCta.style.animation = 'none';
           heroCta.style.opacity = 1 - progress * 2.5;
-          heroCta.style.transform = `translateX(-50%) translateY(${progress * -60}px)`;
+          heroCta.style.transform = `translateY(${progress * -60}px)`;
         }
       }
       if (heroScroll) {
@@ -161,27 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 8000);
   }
 
-  /* ---------- Gallery: Swiper + Lightbox ---------- */
-  const gallerySwiper = new Swiper('.gallery__swiper', {
-    slidesPerView: 'auto',
-    centeredSlides: true,
-    spaceBetween: 20,
-    loop: false,
-    grabCursor: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      prevEl: '.gallery__nav-prev',
-      nextEl: '.gallery__nav-next',
-    },
-  });
-
-  /* Lightbox */
+  /* ---------- Gallery Lightbox ---------- */
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
-  const galleryItems = document.querySelectorAll('.gallery__item');
+  const galleryItems = document.querySelectorAll('.gallery__item, .gallery-full__item');
   let currentIndex = 0;
 
   const openLightbox = (index) => {
