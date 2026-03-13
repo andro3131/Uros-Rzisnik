@@ -433,21 +433,45 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateCountdown, 1000);
   }
 
-  /* ---------- Contact form placeholder handler ---------- */
+  /* ---------- Contact form – EmailJS ---------- */
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = contactForm.querySelector('.btn');
-      btn.textContent = 'Sporočilo poslano!';
-      btn.style.background = '#28a745';
-      btn.style.borderColor = '#28a745';
-      setTimeout(() => {
-        btn.textContent = 'Pošlji sporočilo';
-        btn.style.background = '';
-        btn.style.borderColor = '';
-        contactForm.reset();
-      }, 3000);
+      btn.textContent = 'Pošiljam...';
+      btn.disabled = true;
+
+      const templateParams = {
+        from_name:  contactForm.querySelector('[name="name"]').value,
+        from_email: contactForm.querySelector('[name="email"]').value,
+        message:    contactForm.querySelector('[name="message"]').value,
+      };
+
+      emailjs.send('service_vjtfifg', 'template_awt89at', templateParams)
+        .then(() => {
+          btn.textContent = 'Sporočilo poslano!';
+          btn.style.background = '#28a745';
+          btn.style.borderColor = '#28a745';
+          contactForm.reset();
+          setTimeout(() => {
+            btn.textContent = 'Pošlji sporočilo';
+            btn.style.background = '';
+            btn.style.borderColor = '';
+            btn.disabled = false;
+          }, 3000);
+        })
+        .catch(() => {
+          btn.textContent = 'Napaka – poskusi znova';
+          btn.style.background = '#dc3545';
+          btn.style.borderColor = '#dc3545';
+          btn.disabled = false;
+          setTimeout(() => {
+            btn.textContent = 'Pošlji sporočilo';
+            btn.style.background = '';
+            btn.style.borderColor = '';
+          }, 3000);
+        });
     });
   }
 
